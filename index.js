@@ -19,6 +19,7 @@ async function run(){
         await client.connect();
         // console.log('Database is connected');
         const serviceCollection = client.db('tool_trade').collection('electric_tools');
+        const bookingCollection = client.db('tool_trade').collection('bookings');
        
 
         app.get('/service', async(req, res) =>{
@@ -28,8 +29,13 @@ async function run(){
             res.send(services);
         })
 
+//from modal to db
 
-
+app.post('/booking', async(req, res)=>{
+  const booking = req.body;
+  const result =await bookingCollection.insertOne(booking);
+  return  res.send({success: true, result});
+})
 
 
     }
