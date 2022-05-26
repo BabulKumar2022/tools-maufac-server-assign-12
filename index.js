@@ -1,7 +1,7 @@
 const express = require("express");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const cors = require("cors");
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -22,6 +22,19 @@ async function run(){
         const serviceCollection = client.db('tool_trade').collection('electric_tools');
         const bookingCollection = client.db('tool_trade').collection('bookings');
         const userCollection = client.db('tool_trade').collection('users');
+
+
+
+
+// product collection insert
+app.post("/allProduct",  async (req, res) => {
+  const product = req.body;
+  const result = await serviceCollection.insertOne(product);
+  res.send(result);
+});
+
+
+
 
         //admin auth
         app.get('/admin/:email', async(req, res)=>{
@@ -65,10 +78,10 @@ async function run(){
           const services =await cursor.toArray();
           res.send(services);
       })
-   //from db to server to ui Dashboard
+   //from db to server to ui Dashboard  
     app.get('/booking', async(req, res)=>{
-      const buyer = req.query.buyer;
-      const query = {buyer: buyer};
+      const email = req.query.email;
+      const query = {buyer: email};
       const bookings =await bookingCollection.find(query).toArray();
       res.send(bookings);
     })
