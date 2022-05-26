@@ -33,6 +33,19 @@ app.post("/allProduct",  async (req, res) => {
   res.send(result);
 });
 
+//get all product for dashboard
+  app.get('/allProduct', async(req, res)=>{
+    const allProducts = await serviceCollection.find().toArray();
+    res.send(allProducts);
+  })
+
+  //delete from (electric_tools') collection by admin dashboard
+  app.delete('/allProduct/:email', async(req, res)=>{
+    const email = req.params.email;
+    filter = {email: email};
+    const result = await serviceCollection.deleteOne(filter);
+    res.send(result);
+  })
 
 
 
