@@ -5,3 +5,6 @@
 *  API for All product insert Admin to mongodb
 * API For All product delete Admin to mongodb
 * API for user collection insert and update
+
+## Usages BD = Mongodb
+## Deployment: Heroku.com
